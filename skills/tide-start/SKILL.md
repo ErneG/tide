@@ -27,11 +27,18 @@ allowed-tools: Read, Write, Bash, Grep, Glob
 6. **Set active feature**: `echo "<name>" > .tide/active-feature`
 7. **Read port** from `.tide/worktree-ports` manifest
 8. **CRITICAL: cd into the worktree**:
+   The WorktreeCreate hook prints the worktree path to stdout, which tells Claude Code
+   to change directory automatically. If this didn't happen (e.g. skill-initiated worktree),
+   you MUST cd manually:
    ```bash
    cd .tide/worktrees/<name>
    ```
    ALL subsequent work happens inside the worktree, NEVER in the main repo.
    The main repo must stay on master — it may have other worktrees depending on it.
+   **Verify** you're in the right directory before proceeding:
+   ```bash
+   pwd  # Must end with .tide/worktrees/<name> or .claude/worktrees/<name>
+   ```
 
 ## Output
 
