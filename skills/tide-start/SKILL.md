@@ -26,6 +26,12 @@ allowed-tools: Read, Write, Bash, Grep, Glob
 5. **Initialize DECISIONS.md** with feature description from user
 6. **Set active feature**: `echo "<name>" > .tide/active-feature`
 7. **Read port** from `.tide/worktree-ports` manifest
+8. **CRITICAL: cd into the worktree**:
+   ```bash
+   cd .tide/worktrees/<name>
+   ```
+   ALL subsequent work happens inside the worktree, NEVER in the main repo.
+   The main repo must stay on master — it may have other worktrees depending on it.
 
 ## Output
 
@@ -35,5 +41,13 @@ allowed-tools: Read, Write, Bash, Grep, Glob
   Neon DB:   wt/<name>
   Dev port:  <port>
 
+  You are now in the worktree. All work happens here.
   Next: /tide:plan <description>
 ```
+
+## Rules
+
+- ALWAYS cd into the worktree after creating it
+- NEVER checkout feature branches in the main repo
+- NEVER run `yarn dev` or modify files in the main repo when a worktree exists
+- The main repo stays on master at all times
