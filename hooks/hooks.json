@@ -32,6 +32,16 @@
             "timeout": 30000
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/admin-ui-lint.sh\"",
+            "timeout": 10000
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -42,6 +52,26 @@
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/semgrep-scan.sh\"",
             "timeout": 30000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/business-logic-guard.sh\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/single-hook-handler-guard.sh\"",
+            "timeout": 5000
           }
         ]
       }
