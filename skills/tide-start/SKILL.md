@@ -2,14 +2,12 @@
 name: tide:start
 description: >
   Initialize a new feature with worktree, Neon DB branch, and state files.
-  Uses Claude Code's built-in worktree system — automatic cd, session naming, cleanup.
+  Uses Claude Code's built-in EnterWorktree tool for automatic worktree creation and cd.
   Triggers: "tide start", "start feature", "new feature".
-allowed-tools: Read, Write, Bash, Grep, Glob
+allowed-tools: Read, Write, Bash, Grep, Glob, EnterWorktree
 ---
 
 # /tide:start — Initialize Feature
-
-Uses Claude Code's BUILT-IN worktree system. Do NOT manually run `git worktree add`.
 
 ## Arguments
 
@@ -18,50 +16,31 @@ Uses Claude Code's BUILT-IN worktree system. Do NOT manually run `git worktree a
 
 ## Process
 
-### If in the MAIN session (not yet in a worktree):
-
 1. **Validate** name: `^[a-z][a-z0-9-]*$`, max 50 chars
-2. **Tell the user** to start a new Claude Code session with the worktree flag:
-
-   ```
-   Run this in a new terminal:
-   claude --worktree <name> -n "tide-<name>"
-   ```
-
+2. **Create worktree** (unless --here):
+   Call the `EnterWorktree` tool with `name: <feature-name>`.
    This automatically:
    - Creates worktree at `.claude/worktrees/<name>/`
-   - Creates branch `worktree-<name>`
-   - cd's into the worktree (automatic, no manual cd needed)
-   - Names the session for later resume (`claude --resume "tide-<name>"`)
-   - Fires the WorktreeCreate hook → Neon DB branch + .env + port + yarn install
-
-3. **Create state** (in the MAIN repo, accessible from worktree):
+   - Creates branch `worktree-<name>` from HEAD
+   - Switches session working directory into the worktree
+   - Fires WorktreeCreate hook → Neon DB branch + .env + port + yarn install
+3. **Create state** (in the MAIN repo's .tide/ — accessible via git-common-dir):
    ```bash
-   mkdir -p .tide/features/<name>
+   GIT_COMMON=$(git rev-parse --git-common-dir)
+   MAIN_REPO=$(cd "$(dirname "$GIT_COMMON")" && pwd)
+   mkdir -p "$MAIN_REPO/.tide/features/<name>"
    ```
-4. **Initialize STATE.json** from template with feature name, branch, timestamp
+4. **Initialize STATE.json** with feature name, branch, timestamp, worktree path
 5. **Initialize DECISIONS.md** with feature description from user
-6. **Set active feature**: `echo "<name>" > .tide/active-feature`
-
-### If ALREADY in a worktree session (user ran `claude --worktree`):
-
-The WorktreeCreate hook has already provisioned everything. Just:
-
-1. **Create state**: `mkdir -p .tide/features/<name>`
-2. **Initialize STATE.json and DECISIONS.md**
-3. **Set active feature**
-4. **Verify environment**:
+6. **Set active feature**: `echo "<name>" > "$MAIN_REPO/.tide/active-feature"`
+7. **Verify** environment:
    ```bash
-   pwd                           # Should be in .claude/worktrees/<name>
-   grep "^PORT=" .env            # Should show allocated port
-   git branch --show-current     # Should be worktree-<name>
+   pwd                        # .claude/worktrees/<name>
+   grep "^PORT=" .env         # allocated port
+   git branch --show-current  # worktree-<name>
    ```
 
-### If --here flag (no worktree):
-
-1. Create branch: `git checkout -b feature/<name>`
-2. Initialize state files
-3. No Neon branch, no port allocation, no env patching
+If `--here` flag: just `git checkout -b feature/<name>`, no worktree.
 
 ## Output
 
@@ -69,17 +48,21 @@ The WorktreeCreate hook has already provisioned everything. Just:
 [tide] Feature '<name>' ready!
   Worktree:  .claude/worktrees/<name>
   Branch:    worktree-<name>
-  Neon DB:   wt/<name>
   Dev port:  <port>
-  Session:   tide-<name> (resume with: claude --resume "tide-<name>")
 
   Next: /tide:plan <description>
 ```
 
+## Resume Later
+
+End the session normally. Next time:
+```
+claude --resume "tide-<name>"
+```
+Or from a new session, call `EnterWorktree` with the same name.
+
 ## Rules
 
-- Use Claude Code's built-in `--worktree` flag — NEVER manual `git worktree add`
-- The main repo stays on master at all times
-- Each feature = separate terminal with `claude --worktree <name>`
-- Resume with `claude --resume "tide-<name>"`
-- Cleanup is automatic when session ends with no changes
+- ALWAYS use EnterWorktree tool — never manual `git worktree add`
+- The main repo stays on its current branch at all times
+- State files live in main repo's `.tide/features/` (shared across worktrees)
