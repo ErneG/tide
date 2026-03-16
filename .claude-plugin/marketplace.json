@@ -1,19 +1,19 @@
 {
-  "name": "arc-marketplace",
+  "name": "tide-marketplace",
   "owner": {
     "name": "Ernest Dane",
     "email": "ernests.dane@gmail.com"
   },
   "metadata": {
-    "description": "Arc autonomous development engine",
+    "description": "Tide — autonomous Medusa development engine",
     "pluginRoot": "."
   },
   "plugins": [
     {
-      "name": "arc",
+      "name": "tide",
       "source": "./",
-      "description": "Autonomous development engine with UX-aware planning, worktree isolation, and deployment integration",
-      "version": "0.1.0"
+      "description": "Autonomous Medusa development engine with UX-aware planning, worktree isolation, and deployment integration",
+      "version": "0.2.0"
     }
   ]
 }

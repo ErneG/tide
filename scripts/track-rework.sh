@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# .arc/scripts/track-rework.sh — Track code rework rate (DORA 5th metric)
+# .tide/scripts/track-rework.sh — Track code rework rate (DORA 5th metric)
 # Detects files changed by AI that were modified again within 14 days.
 # Usage: track-rework.sh [days=14]
 # Outputs a report of reworked files with their original and rework commits.
@@ -9,10 +9,10 @@ DAYS="${1:-14}"
 CUTOFF_DATE=$(date -v-${DAYS}d +"%Y-%m-%d" 2>/dev/null || date -d "-${DAYS} days" +"%Y-%m-%d")
 GIT_COMMON=$(git rev-parse --git-common-dir 2>/dev/null || echo ".git")
 MAIN_REPO=$(cd "$(dirname "$GIT_COMMON")" && pwd)
-ARC_ROOT="$MAIN_REPO/.arc"
-REPORT="$ARC_ROOT/metrics/rework-report.md"
+TIDE_ROOT="$MAIN_REPO/.tide"
+REPORT="$TIDE_ROOT/metrics/rework-report.md"
 
-mkdir -p "$ARC_ROOT/metrics"
+mkdir -p "$TIDE_ROOT/metrics"
 
 # Get all commits in the window
 COMMITS=$(git log --since="$CUTOFF_DATE" --format="%H %aI %s" --no-merges -- src/ 2>/dev/null || echo "")

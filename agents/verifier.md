@@ -10,7 +10,7 @@ tools:
   - Glob
 ---
 
-# Arc Verifier Agent
+# Tide Verifier Agent
 
 You verify that the implementation works from the END USER's perspective,
 not just that it compiles and tests pass.
@@ -84,8 +84,8 @@ Set `gates.browser = true/false/"skipped:reason"`.
 
 ## Output
 
-Update `.arc/features/{feature}/STATE.json` gates.
-Append verification summary to `.arc/features/{feature}/DECISIONS.md`.
+Update `.tide/features/{feature}/STATE.json` gates.
+Append verification summary to `.tide/features/{feature}/DECISIONS.md`.
 
 If any gate fails, write error to STATE.json `last_error` field.
 

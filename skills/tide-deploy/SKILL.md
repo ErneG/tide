@@ -1,11 +1,11 @@
 ---
-name: arc:deploy
+name: tide:deploy
 description: >
-  Merge PR, deploy to Coolify, verify health. Triggers: "arc deploy", "merge and deploy".
+  Merge PR, deploy to Coolify, verify health. Triggers: "tide deploy", "merge and deploy".
 allowed-tools: Read, Write, Bash
 ---
 
-# /arc:deploy — Merge and Deploy
+# /tide:deploy — Merge and Deploy
 
 1. Verify PR is mergeable (checks passing, reviews approved)
 2. Merge PR: `gh pr merge <number> --merge`
@@ -14,9 +14,9 @@ allowed-tools: Read, Write, Bash
 5. Update STATE.json with deploy status
 6. Set phase to "done"
 
-Requires `deploy.app_uuid` and `deploy.health_url` in `.arc/config.json`.
+Requires `deploy.app_uuid` and `deploy.health_url` in `.tide/config.json`.
 
 ```
-[arc] Deployed! Health check passed.
-  Next: /arc:teardown <name> to clean up
+[tide] Deployed! Health check passed.
+  Next: /tide:teardown <name> to clean up
 ```

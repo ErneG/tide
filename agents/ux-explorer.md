@@ -83,7 +83,7 @@ For the proposed feature, identify:
 
 ### 4. Output: UX Map
 
-Write a structured report to `.arc/features/{feature}/UX-MAP.md`:
+Write a structured report to `.tide/features/{feature}/UX-MAP.md`:
 
 ```markdown
 # UX Map: {feature area}

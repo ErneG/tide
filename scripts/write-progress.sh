@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# .arc/scripts/write-progress.sh — Generate human-readable PROGRESS.md for a feature
+# .tide/scripts/write-progress.sh — Generate human-readable PROGRESS.md for a feature
 # Usage: write-progress.sh <feature-name>
 # Called by the orchestrator after each task completion.
 # Fresh agent sessions read this file to quickly understand where things stand.
@@ -8,11 +8,11 @@ set -euo pipefail
 FEATURE="${1:?Usage: write-progress.sh <feature-name>}"
 GIT_COMMON=$(git rev-parse --git-common-dir 2>/dev/null || echo ".git")
 MAIN_REPO=$(cd "$(dirname "$GIT_COMMON")" && pwd)
-ARC_ROOT="$MAIN_REPO/.arc"
-ARC_DIR="$ARC_ROOT/features/$FEATURE"
-STATE="$ARC_DIR/STATE.json"
-PLAN="$ARC_DIR/PLAN.md"
-PROGRESS="$ARC_DIR/PROGRESS.md"
+TIDE_ROOT="$MAIN_REPO/.tide"
+TIDE_DIR="$TIDE_ROOT/features/$FEATURE"
+STATE="$TIDE_DIR/STATE.json"
+PLAN="$TIDE_DIR/PLAN.md"
+PROGRESS="$TIDE_DIR/PROGRESS.md"
 
 if [[ ! -f "$STATE" ]]; then
   exit 0

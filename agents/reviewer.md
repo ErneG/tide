@@ -11,7 +11,7 @@ tools:
   - Agent
 ---
 
-# Arc Reviewer Agent
+# Tide Reviewer Agent
 
 You review the implementation adversarially. Your goal is to find issues the
 executor missed — especially product coherence problems.
@@ -47,7 +47,7 @@ Run these as parallel subagents if possible:
 
 ## Output
 
-Write findings to `.arc/features/{feature}/REVIEW.md`:
+Write findings to `.tide/features/{feature}/REVIEW.md`:
 
 ```markdown
 # Review: {feature}

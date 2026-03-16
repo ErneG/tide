@@ -1,14 +1,14 @@
 ---
-name: arc:plan
+name: tide:plan
 description: >
   UX-aware feature planning. Explores existing UI first, then produces a plan with
   user flows, coherence checks, and concrete options (not questions). The plan that
   prevents "3 translation UIs" problems.
-  Triggers: "arc plan", "plan feature", "plan this".
+  Triggers: "tide plan", "plan feature", "plan this".
 allowed-tools: Read, Write, Bash, Grep, Glob, Agent
 ---
 
-# /arc:plan — UX-Aware Feature Planning
+# /tide:plan — UX-Aware Feature Planning
 
 Plans a feature by understanding what ALREADY EXISTS before proposing anything new.
 Produces plans with user flows, not just technical task lists.
@@ -22,11 +22,11 @@ Produces plans with user flows, not just technical task lists.
 ### Step 1: Set Up Feature State
 
 ```bash
-FEATURE=$(cat .arc/active-feature 2>/dev/null)
-mkdir -p .arc/features/$FEATURE
+FEATURE=$(cat .tide/active-feature 2>/dev/null)
+mkdir -p .tide/features/$FEATURE
 ```
 
-If no active feature, ask the user to run `/arc:start <name>` first.
+If no active feature, ask the user to run `/tide:start <name>` first.
 
 ### Step 2: Explore Existing UI
 
@@ -35,7 +35,7 @@ Spawn the **ux-explorer** agent to map what already exists:
 ```
 Agent: ux-explorer
 Task: Map the existing UI in the area related to: $ARGUMENTS
-Output: .arc/features/$FEATURE/UX-MAP.md
+Output: .tide/features/$FEATURE/UX-MAP.md
 ```
 
 This agent navigates the admin with agent-browser (if server running) and
@@ -50,7 +50,7 @@ Spawn the **planner** agent to create the implementation plan:
 Agent: planner
 Task: Create plan for: $ARGUMENTS
 Input: UX-MAP.md, DECISIONS.md, CLAUDE.md
-Output: .arc/features/$FEATURE/PLAN.md
+Output: .tide/features/$FEATURE/PLAN.md
 ```
 
 The planner MUST:
@@ -69,7 +69,7 @@ Spawn the **coherence-checker** agent to validate the plan:
 Agent: coherence-checker
 Task: Review plan for coherence with existing UI
 Input: PLAN.md, UX-MAP.md
-Output: .arc/features/$FEATURE/COHERENCE.md
+Output: .tide/features/$FEATURE/COHERENCE.md
 ```
 
 If verdict is FAIL:
@@ -82,9 +82,9 @@ If verdict is FAIL:
 
 ```bash
 # Set task count from plan
-TASK_COUNT=$(grep -c "^### Task" .arc/features/$FEATURE/PLAN.md)
+TASK_COUNT=$(grep -c "^### Task" .tide/features/$FEATURE/PLAN.md)
 jq ".task.total = $TASK_COUNT | .phase = \"plan\" | .status = \"complete\"" \
-  .arc/features/$FEATURE/STATE.json > tmp && mv tmp .arc/features/$FEATURE/STATE.json
+  .tide/features/$FEATURE/STATE.json > tmp && mv tmp .tide/features/$FEATURE/STATE.json
 ```
 
 ### Step 6: Present to User
@@ -97,7 +97,7 @@ Show:
 4. The task list with confidence levels
 5. Any risks or trade-offs
 
-Then ask: **"Does this plan look right? Run /arc:go to start building."**
+Then ask: **"Does this plan look right? Run /tide:go to start building."**
 
 ## What Makes This Different
 

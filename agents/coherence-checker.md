@@ -82,7 +82,7 @@ find src/links -name "*.ts" | sort
 
 ## Output
 
-Write findings to `.arc/features/{feature}/COHERENCE.md`:
+Write findings to `.tide/features/{feature}/COHERENCE.md`:
 
 ```markdown
 # Coherence Review: {feature}

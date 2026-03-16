@@ -8,11 +8,11 @@ WORKTREE_NAME=$(echo "$INPUT" | jq -r '.name // empty' 2>/dev/null)
 
 GIT_COMMON=$(git rev-parse --git-common-dir 2>/dev/null || echo ".git")
 MAIN_REPO=$(cd "$(dirname "$GIT_COMMON")" && pwd)
-ARC_CONFIG="$MAIN_REPO/.arc/config.json"
-PORT_MANIFEST="$MAIN_REPO/.arc/worktree-ports"
+TIDE_CONFIG="$MAIN_REPO/.tide/config.json"
+PORT_MANIFEST="$MAIN_REPO/.tide/worktree-ports"
 
-NEON_PROJECT=$(jq -r '.neon.project_id // "old-breeze-92687906"' "$ARC_CONFIG" 2>/dev/null || echo "old-breeze-92687906")
-DB_STRATEGY=$(jq -r '.db_strategy // "neon"' "$ARC_CONFIG" 2>/dev/null || echo "neon")
+NEON_PROJECT=$(jq -r '.neon.project_id // "old-breeze-92687906"' "$TIDE_CONFIG" 2>/dev/null || echo "old-breeze-92687906")
+DB_STRATEGY=$(jq -r '.db_strategy // "neon"' "$TIDE_CONFIG" 2>/dev/null || echo "neon")
 
 log() { echo "$*" > /dev/tty 2>/dev/null || true; }
 
@@ -31,5 +31,5 @@ fi
 # Clean port manifest
 [[ -f "$PORT_MANIFEST" ]] && sed -i '' "/^${WORKTREE_NAME}=/d" "$PORT_MANIFEST" 2>/dev/null || true
 
-log "[arc] Cleaned up: $WORKTREE_NAME"
+log "[tide] Cleaned up: $WORKTREE_NAME"
 exit 0

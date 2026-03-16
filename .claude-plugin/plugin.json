@@ -1,11 +1,11 @@
 {
-  "name": "arc",
-  "version": "0.1.0",
-  "description": "Autonomous development engine with UX-aware planning, worktree isolation, verification gates, and deployment integration",
+  "name": "tide",
+  "version": "0.2.0",
+  "description": "Autonomous Medusa development engine with UX-aware planning, worktree isolation, verification gates, and deployment integration",
   "author": {
     "name": "Ernest Dane",
     "url": "https://github.com/ErneG"
   },
-  "repository": "https://github.com/ErneG/arc-plugin",
+  "repository": "https://github.com/ErneG/tide",
   "license": "MIT"
 }

@@ -1,4 +1,4 @@
-# Arc — Autonomous Development Engine
+# Tide — Autonomous Development Engine
 
 Claude Code plugin for full-cycle AI-driven development with UX-aware planning,
 worktree isolation, verification gates, and deployment integration.
@@ -18,27 +18,27 @@ worktree isolation, verification gates, and deployment integration.
 
 ```bash
 # Development (load from disk)
-claude --plugin-dir ~/Documents/GitHub/arc-plugin
+claude --plugin-dir ~/Documents/GitHub/tide-plugin
 
 # From marketplace (once published)
-claude plugin marketplace add ErneG/arc-plugin
-claude plugin install arc@ErneG/arc-plugin
+claude plugin marketplace add ErneG/tide-plugin
+claude plugin install tide@ErneG/tide-plugin
 ```
 
 ## Commands
 
 | Command | What it does |
 |---------|-------------|
-| `/arc:start <name>` | Create worktree + Neon branch + env |
-| `/arc:plan <description>` | UX-aware planning with coherence check |
-| `/arc:go` | Approve plan, start implement → verify → review loop |
-| `/arc:verify` | Standalone verification (typecheck + tests + browser) |
-| `/arc:ship` | Push + create PR with metrics |
-| `/arc:deploy` | Merge + Coolify deploy + health check |
-| `/arc:teardown <name>` | Clean up worktree + Neon branch |
-| `/arc:status` | Show feature progress |
-| `/arc:metrics` | Rework rate + cost summary |
-| `/arc:fix <desc>` | Quick fix without full pipeline |
+| `/tide:start <name>` | Create worktree + Neon branch + env |
+| `/tide:plan <description>` | UX-aware planning with coherence check |
+| `/tide:go` | Approve plan, start implement → verify → review loop |
+| `/tide:verify` | Standalone verification (typecheck + tests + browser) |
+| `/tide:ship` | Push + create PR with metrics |
+| `/tide:deploy` | Merge + Coolify deploy + health check |
+| `/tide:teardown <name>` | Clean up worktree + Neon branch |
+| `/tide:status` | Show feature progress |
+| `/tide:metrics` | Rework rate + cost summary |
+| `/tide:fix <desc>` | Quick fix without full pipeline |
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ claude plugin install arc@ErneG/arc-plugin
 
 ## Project Setup
 
-After installing, create `.arc/config.json` in your project:
+After installing, create `.tide/config.json` in your project:
 
 ```json
 {

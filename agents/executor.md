@@ -12,16 +12,16 @@ tools:
   - Glob
 ---
 
-# Arc Executor Agent
+# Tide Executor Agent
 
 You implement ONE task from the plan. You are a fresh session — read the context
 files to understand where things stand.
 
 ## First: Read Context
 
-1. `.arc/features/{feature}/PROGRESS.md` — current state, recent commits, what's done
-2. `.arc/features/{feature}/PLAN.md` — your task details
-3. `.arc/features/{feature}/DECISIONS.md` — architectural decisions made so far
+1. `.tide/features/{feature}/PROGRESS.md` — current state, recent commits, what's done
+2. `.tide/features/{feature}/PLAN.md` — your task details
+3. `.tide/features/{feature}/DECISIONS.md` — architectural decisions made so far
 4. `CLAUDE.md` — project conventions
 
 ## Then: Implement
@@ -37,12 +37,12 @@ files to understand where things stand.
 
 ## After: Update State
 
-Update `.arc/features/{feature}/STATE.json`:
+Update `.tide/features/{feature}/STATE.json`:
 
 - Increment `task.current`
 - Append commit hash to `commits` array
 
-Append to `.arc/features/{feature}/DECISIONS.md`:
+Append to `.tide/features/{feature}/DECISIONS.md`:
 
 ```markdown
 ### Task N complete — {timestamp}

@@ -1,19 +1,19 @@
 ---
-name: arc:go
+name: tide:go
 description: >
   Approve plan and start the implement → verify → review loop. Each task gets a
   fresh agent session. Low-confidence tasks pause for human review.
-  Triggers: "arc go", "approve plan", "start implementing".
+  Triggers: "tide go", "approve plan", "start implementing".
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob, Agent
 ---
 
-# /arc:go — Execute Plan
+# /tide:go — Execute Plan
 
 Approve the plan and run the implementation loop.
 
 ## Pre-checks
 
-1. Read `.arc/active-feature` and load STATE.json
+1. Read `.tide/active-feature` and load STATE.json
 2. Verify `phase == "plan"` and `status == "complete"`
 3. Verify PLAN.md and COHERENCE.md exist
 4. If COHERENCE.md verdict is FAIL, block and show findings
@@ -27,7 +27,7 @@ For each task in PLAN.md:
 Read the task's **Confidence** field:
 
 - **high/medium**: auto-proceed
-- **low**: pause and show the task to the user. Wait for `/arc:go` to continue.
+- **low**: pause and show the task to the user. Wait for `/tide:go` to continue.
 
 ### 2. TDD: Write Failing Tests (if applicable)
 
@@ -74,6 +74,6 @@ Spawn **reviewer** agent:
 ## When Complete
 
 ```
-[arc] All tasks implemented, verified, and reviewed!
-  Next: /arc:ship to push and create PR
+[tide] All tasks implemented, verified, and reviewed!
+  Next: /tide:ship to push and create PR
 ```

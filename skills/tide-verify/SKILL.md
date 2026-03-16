@@ -1,12 +1,12 @@
 ---
-name: arc:verify
+name: tide:verify
 description: >
   Run verification standalone — typecheck, tests, UX browser check.
-  Triggers: "arc verify", "verify this", "check if it works".
+  Triggers: "tide verify", "verify this", "check if it works".
 allowed-tools: Read, Write, Bash, Grep, Glob
 ---
 
-# /arc:verify — Standalone Verification
+# /tide:verify — Standalone Verification
 
 Run verification gates without advancing the pipeline. Restores original phase after.
 

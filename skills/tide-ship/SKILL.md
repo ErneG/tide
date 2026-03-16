@@ -1,11 +1,11 @@
 ---
-name: arc:ship
+name: tide:ship
 description: >
-  Push branch, create PR with metrics. Triggers: "arc ship", "create pr", "push and pr".
+  Push branch, create PR with metrics. Triggers: "tide ship", "create pr", "push and pr".
 allowed-tools: Read, Write, Bash
 ---
 
-# /arc:ship — Push and Create PR
+# /tide:ship — Push and Create PR
 
 1. Check STATE.json: verify phase is "review" with status "complete"
 2. Push branch: `git push -u origin <branch>`
@@ -19,6 +19,6 @@ allowed-tools: Read, Write, Bash
 6. Set phase to "post-pr"
 
 ```
-[arc] PR #N created: <url>
-  Next: Wait for CI + review, then /arc:deploy
+[tide] PR #N created: <url>
+  Next: Wait for CI + review, then /tide:deploy
 ```

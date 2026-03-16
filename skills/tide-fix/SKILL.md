@@ -1,13 +1,13 @@
 ---
-name: arc:fix
+name: tide:fix
 description: >
   Quick fix path — no worktree, no plan, no research. For typos, config changes,
   one-off fixes. Auto-ships on pass.
-  Triggers: "arc fix", "quick fix", "hotfix".
+  Triggers: "tide fix", "quick fix", "hotfix".
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# /arc:fix — Quick Fix
+# /tide:fix — Quick Fix
 
 For small changes that don't need the full pipeline.
 
